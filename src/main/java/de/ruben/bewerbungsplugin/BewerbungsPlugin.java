@@ -2,7 +2,7 @@ package de.ruben.bewerbungsplugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Bewerbungsplugin extends JavaPlugin {
+public final class BewerbungsPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
