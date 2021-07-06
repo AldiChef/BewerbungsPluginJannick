@@ -1,0 +1,6 @@
+name: Bewerbungsplugin
+version: ${project.version}
+main: de.ruben.bewerbungsplugin.Bewerbungsplugin
+api-version: 1.16
+authors: [ AldiChef ]
+description: Application plugin for the Menia.net network
