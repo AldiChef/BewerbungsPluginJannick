@@ -1,5 +1,6 @@
 package de.ruben.bewerbungsplugin.command;
 
+import com.sun.istack.internal.NotNull;
 import de.ruben.bewerbungsplugin.BewerbungsPlugin;
 import de.ruben.bewerbungsplugin.object.TeamGroup;
 import de.ruben.bewerbungsplugin.util.TeamPlayerProvider;
@@ -12,13 +13,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TeamCommand implements CommandExecutor {
 
-    private BewerbungsPlugin plugin;
+    private final BewerbungsPlugin plugin;
 
     public TeamCommand(BewerbungsPlugin plugin) {
         this.plugin = plugin;
@@ -26,7 +26,7 @@ public class TeamCommand implements CommandExecutor {
 
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if(!(sender instanceof Player)){
             sender.sendMessage("Um diesen Command ausführen zu können musst du ein Spieler sein!");

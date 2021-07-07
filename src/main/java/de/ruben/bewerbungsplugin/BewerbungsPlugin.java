@@ -11,7 +11,7 @@ import java.util.List;
 
 public final class BewerbungsPlugin extends JavaPlugin {
 
-    public final List<TeamPlayer> teamPlayers = new ArrayList<TeamPlayer>();
+    public final List<TeamPlayer> teamPlayers = new ArrayList<>();
 
     @Override
     public void onEnable() {
