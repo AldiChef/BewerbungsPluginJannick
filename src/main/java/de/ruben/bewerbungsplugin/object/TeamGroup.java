@@ -2,9 +2,9 @@ package de.ruben.bewerbungsplugin.object;
 
 public enum TeamGroup {
 
-    INHABER("§4Inhaber", 1),
+    INHABER("§4Inhaber", 3),
     DEVELOPER("§bDeveloper",2),
-    MODERATOR("§cModerator",3);
+    MODERATOR("§cModerator",1);
 
     private String displayName;
     private int value;
