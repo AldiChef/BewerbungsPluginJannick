@@ -1,20 +1,20 @@
 package de.ruben.bewerbungsplugin.util;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import de.ruben.bewerbungsplugin.BewerbungsPlugin;
 import de.ruben.bewerbungsplugin.object.TeamGroup;
 import de.ruben.bewerbungsplugin.object.TeamPlayer;
+import dev.dbassett.skullcreator.SkullCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TeamPlayerProvider {
@@ -53,8 +53,8 @@ public class TeamPlayerProvider {
         return teamPlayerOptional.isPresent() ? teamPlayerOptional.get() : null;
     }
 
-    public boolean isTeamPlayer(Player player){
-        return teamPlayers.stream().anyMatch(teamPlayer -> teamPlayer.getUuid().equals(player.getUniqueId()));
+    public boolean isTeamPlayer(){
+        return teamPlayers.stream().anyMatch(teamPlayer -> teamPlayer.getUuid().equals(player.getUniqueId().toString()));
     }
 
     public ItemStack[] getSortedTeamPlayersConent(){
@@ -76,23 +76,13 @@ public class TeamPlayerProvider {
     private ItemStack getSkull(TeamPlayer teamPlayer){
         ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
 
-        try {
             ItemMeta stackMeta = itemStack.getItemMeta();
-            GameProfile gameProfile = new GameProfile(UUID.fromString(teamPlayer.getUuid()), Bukkit.getOfflinePlayer(UUID.fromString(teamPlayer.getUuid())).getName());
-            Field profileField = stackMeta.getClass().getDeclaredField("profile");
-
-            profileField.setAccessible(true);
-            profileField.set(stackMeta, gameProfile);
-
-            stackMeta.setDisplayName(gameProfile.getName());
+            stackMeta.setDisplayName(Bukkit.getOfflinePlayer(UUID.fromString(teamPlayer.getUuid())).getName());
+            stackMeta.setLore(Arrays.asList("§8➥ "+teamPlayer.getTeamGroup().getDisplayName()));
 
             itemStack.setItemMeta(stackMeta);
 
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        return itemStack;
+        return SkullCreator.itemWithUuid(itemStack, UUID.fromString(teamPlayer.getUuid()));
 
     }
 

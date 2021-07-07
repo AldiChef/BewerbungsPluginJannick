@@ -5,7 +5,7 @@ public class TeamPlayer {
     private String uuid;
     private TeamGroup teamGroup;
 
-    public TeamPlayer(String uuid, TeamGroup teamGroup){
+    public TeamPlayer(String uuid, TeamGroup teamGroup) {
         this.uuid = uuid;
         this.teamGroup = teamGroup;
     }

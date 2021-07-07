@@ -54,11 +54,20 @@
     </build>
 
     <repositories>
-
+            <repository>
+                <id>skullcreator-repo</id>
+                <url>https://github.com/deanveloper/SkullCreator/raw/mvn-repo/</url>
+            </repository>
     </repositories>
 
     <dependencies>
-
+        <!-- SkullCreator -->
+        <dependency>
+            <groupId>dev.dbassett</groupId>
+            <artifactId>skullcreator</artifactId>
+            <version>3.0.1</version>
+            <scope>compile</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.spigotmc</groupId>

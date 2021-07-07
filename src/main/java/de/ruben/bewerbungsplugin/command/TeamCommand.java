@@ -4,6 +4,7 @@ import de.ruben.bewerbungsplugin.BewerbungsPlugin;
 import de.ruben.bewerbungsplugin.object.TeamGroup;
 import de.ruben.bewerbungsplugin.util.TeamPlayerProvider;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,6 +13,8 @@ import org.bukkit.inventory.Inventory;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TeamCommand implements CommandExecutor {
 
@@ -36,7 +39,8 @@ public class TeamCommand implements CommandExecutor {
 
         if(args.length == 0){
 
-            Inventory inv = Bukkit.createInventory(null, 27, "TestTitel");
+            Inventory inv = Bukkit.createInventory(null, plugin.getConfig().getInt("inventory_rows")*9, formatColors(plugin.getConfig().getString("inventory_title")));
+
             player.openInventory(inv);
             inv.setContents(new TeamPlayerProvider(plugin).getSortedTeamPlayersConent());
 
@@ -52,7 +56,7 @@ public class TeamCommand implements CommandExecutor {
 
                 TeamPlayerProvider teamPlayerProvider = new TeamPlayerProvider(plugin, target);
 
-                if(teamPlayerProvider.isTeamPlayer(target)){
+                if(teamPlayerProvider.isTeamPlayer()){
                     player.sendMessage("Der angegebene Spieler ist bereits in der Teamliste eingetragen!");
                     return true;
                 }
@@ -77,5 +81,17 @@ public class TeamCommand implements CommandExecutor {
         }
 
         return false;
+    }
+
+    private String formatColors(String message) {
+        Pattern pattern = Pattern.compile("#[A-Fa-f0-9]{6}");
+        Matcher matcher = pattern.matcher(message);
+
+        while (matcher.find()) {
+            String color = message.substring(matcher.start(), matcher.end());
+            message = message.replace(color, net.md_5.bungee.api.ChatColor.of(color)+"");
+            matcher = pattern.matcher(message);
+        }
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 }

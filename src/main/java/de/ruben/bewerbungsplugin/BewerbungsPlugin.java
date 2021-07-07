@@ -1,7 +1,9 @@
 package de.ruben.bewerbungsplugin;
 
 import de.ruben.bewerbungsplugin.command.TeamCommand;
+import de.ruben.bewerbungsplugin.listener.InventoryClickListener;
 import de.ruben.bewerbungsplugin.object.TeamPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -15,6 +17,10 @@ public final class BewerbungsPlugin extends JavaPlugin {
     public void onEnable() {
 
         getCommand("team").setExecutor(new TeamCommand(this));
+
+        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(this), this);
+
+        saveDefaultConfig();
 
     }
 
